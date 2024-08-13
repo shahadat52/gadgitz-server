@@ -19,21 +19,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     },
   ];
 
-  // const handleZodError = (err: ZodError) => {
-  //   const errorSource: TErrorSource = err.issues.map((issue: ZodIssue) => {
-  //     return {
-  //       path: issue?.path[issue.path?.length - 1],
-  //       message: issue.message,
-  //     };
-  //   });
 
-  //   const statusCode = 400;
-  //   return {
-  //     statusCode,
-  //     message: 'Validation error',
-  //     errorSource,
-  //   };
-  // };
 
   if (err instanceof ZodError) {
     const simplifyError = handleZodError(err);
@@ -62,20 +48,9 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     message,
     errorSource,
     err,
-    // stack: config.node_env === 'development' ? err?.stack : null,
+    stack: config.node_env === 'development' ? err?.stack : null,
   });
 };
 
 export default globalErrorHandler;
-/*
-//pattern
 
-success
-message
-errorSources:[
-  path:'',
-  message:''
-]
-stack
-
-*/
