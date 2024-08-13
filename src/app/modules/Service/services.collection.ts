@@ -26,6 +26,17 @@ const getAllServices: RequestHandler = catchAsync(async (req, res) => {
     })
 });
 
+const getServiceById: RequestHandler = catchAsync(async (req, res) => {
+    const result = await serviceServices.getAllServicesFromDB()
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'All services is retrieved successfully',
+        data: result,
+    })
+});
+
 const updateService: RequestHandler = catchAsync(async (req, res) => {
     const { id } = req.params
     const result = await serviceServices.updateServiceInDB(id, req.body)
@@ -53,6 +64,7 @@ const deleteService: RequestHandler = catchAsync(async (req, res) => {
 export const serviceCollections = {
     createService,
     getAllServices,
+    getServiceById,
     updateService,
     deleteService
 }

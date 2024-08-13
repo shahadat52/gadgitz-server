@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { authRouters } from "../modules/auth/auth.router";
 import { serviceRouters } from "../modules/Service/service.router";
-import { bookingRoutes } from "../modules/Booking/booking.router";
 import { slotRouters } from "../modules/Slot/slot.router";
+import { bookingRoutes } from "../modules/Booking/booking.router";
 
 
 // import express from 'express'

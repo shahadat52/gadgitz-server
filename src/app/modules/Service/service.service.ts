@@ -11,6 +11,12 @@ const getAllServicesFromDB = async () => {
     return result
 }
 
+
+const getServiceByIdFromDB = async (id: string) => {
+    const result = await ServiceModel.findById(id);
+    return result
+}
+
 const updateServiceInDB = async (id: string, payload: Partial<TService>) => {
     const result = await ServiceModel.findByIdAndUpdate(id, payload, { new: true });
     return result
@@ -24,6 +30,7 @@ const deleteServiceFromDB = async (id: string) => {
 export const serviceServices = {
     createServiceInDB,
     getAllServicesFromDB,
+    getServiceByIdFromDB,
     updateServiceInDB,
     deleteServiceFromDB
 }

@@ -15,10 +15,6 @@ router.get(
     bookingCollections.getAllBookings
 );
 
-router.get(
-    '/my-bookings',
-    auth('user'),
-    bookingCollections.getBookingById
-);
+
 
 export const bookingRoutes = router
