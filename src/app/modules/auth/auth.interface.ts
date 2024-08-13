@@ -12,4 +12,10 @@ export type TLoginUser = {
   password: string;
 };
 
+export type TJwtUser = {
+  id: string
+  email: string,
+  role: 'user' | 'admin',
+}
+
 
