@@ -3,6 +3,8 @@ import cors from 'cors';
 import router from './app/routes';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import notFound from './app/middlewares/notFound';
+import auth from './app/middlewares/auth';
+import { bookingCollections } from './app/modules/Booking/booking.collection';
 const app: Application = express();
 
 // middleware parsers
@@ -14,6 +16,11 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api', router)
+app.use(
+  '/api/my-bookings',
+  auth('user'),
+  bookingCollections.getBookingById
+)
 
 app.use(globalErrorHandler);
 
