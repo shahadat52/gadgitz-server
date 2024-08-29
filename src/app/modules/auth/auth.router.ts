@@ -1,13 +1,13 @@
 import express from 'express'
 import { authCollections } from './auth.collection';
-import validateRequest from '../../middlewares/validateRequest';
-import { userValidations } from './auth.validation';
+// import validateRequest from '../../middlewares/validateRequest';
+// import { userValidations } from './auth.validation';
 
 const router = express.Router();
 
 router.post(
     '/signup',
-    validateRequest(userValidations.userValidationSchema),
+    // validateRequest(userValidations.userValidationSchema),
     authCollections.createUser);
 router.post('/login', authCollections.login)
 

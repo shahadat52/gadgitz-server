@@ -1,7 +1,6 @@
 import express from 'express'
 import { serviceCollections } from './services.collection';
 import auth from '../../middlewares/auth';
-import { slotCollections } from '../Slot/slot.collection';
 
 const router = express.Router();
 
@@ -33,11 +32,6 @@ router.delete(
     serviceCollections.deleteService
 );
 
-router.post(
-    '/slots',
-    auth('admin'),
-    slotCollections.createSlot
-);
 
 
 export const serviceRouters = router;

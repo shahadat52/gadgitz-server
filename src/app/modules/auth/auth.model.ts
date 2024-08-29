@@ -18,7 +18,7 @@ const userSchema = new Schema<TUser>({
     },
     phone: {
         type: String,
-        required: true
+        required: false
     },
     role: {
         type: String,
@@ -27,7 +27,7 @@ const userSchema = new Schema<TUser>({
     },
     address: {
         type: String,
-        required: true
+        required: false
     }
 }, {
     timestamps: true

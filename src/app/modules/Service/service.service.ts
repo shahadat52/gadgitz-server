@@ -3,11 +3,12 @@ import { ServiceModel } from "./service.model";
 
 const createServiceInDB = async (data: TService) => {
     const result = await ServiceModel.create(data);
+    console.log(result);
     return result
 };
 
 const getAllServicesFromDB = async () => {
-    const result = await ServiceModel.find();
+    const result = await ServiceModel.find({ isDeleted: false });
     return result
 }
 

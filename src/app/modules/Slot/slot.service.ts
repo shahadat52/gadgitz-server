@@ -21,20 +21,29 @@ const createSlotInDB = async (data: TSlot) => {
     return result
 };
 
-
 const getAllSlotsFromDB = async (query: TQuery) => {
     let findQuery = {}
     if (query.service && query.date) {
-        query.isBooked = 'available'
+
         findQuery = query
 
     }
-    const result = await SlotModel.find(findQuery);
+    const result = await SlotModel.find(findQuery).populate('service');
 
     return result
-}
+};
+
+const updateStatusInDB = async (id: string) => {
+
+    const result = await SlotModel.findById(id)
+    const newStatus = result?.isBooked === 'available' ? 'canceled' : 'available';
+    const updateStatus = await SlotModel.findByIdAndUpdate(id, { isBooked: newStatus }, { new: true })
+
+    return updateStatus
+};
 
 export const slotServices = {
     createSlotInDB,
-    getAllSlotsFromDB
+    getAllSlotsFromDB,
+    updateStatusInDB
 }

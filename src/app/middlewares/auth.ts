@@ -36,8 +36,6 @@ const auth = (...requireRole: string[]) => {
         }
 
         const { id } = decoded;
-
-
         //start\\
 
         const user = await UserModel.findById(id);

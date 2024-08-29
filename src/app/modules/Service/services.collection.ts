@@ -6,7 +6,6 @@ import httpStatus from "http-status";
 
 const createService: RequestHandler = catchAsync(async (req, res) => {
     const result = await serviceServices.createServiceInDB(req.body)
-
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -27,12 +26,13 @@ const getAllServices: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getServiceById: RequestHandler = catchAsync(async (req, res) => {
-    const result = await serviceServices.getAllServicesFromDB()
+    const { id } = req.params
+    const result = await serviceServices.getServiceByIdFromDB(id)
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'All services is retrieved successfully',
+        message: 'Service data retrieved successfully',
         data: result,
     })
 });

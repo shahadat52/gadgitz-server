@@ -28,7 +28,21 @@ const getAllSlots: RequestHandler = catchAsync(async (req, res) => {
     })
 });
 
+
+const updateStatus: RequestHandler = catchAsync(async (req, res) => {
+    const { id } = req.params
+    const result = await slotServices.updateStatusInDB(id)
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Slots Status Updated successfully',
+        data: result,
+    })
+});
+
 export const slotCollections = {
     createSlot,
-    getAllSlots
+    getAllSlots,
+    updateStatus
 }
