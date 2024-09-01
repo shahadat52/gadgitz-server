@@ -1,21 +1,14 @@
 
-export type TUser = {
-  name: string;
-  email: string;
-  password: string;
-  phone: string;
-  role: 'admin' | 'user';
-  address: string;
-}
 export type TLoginUser = {
   email: string;
   password: string;
 };
 
 export type TJwtUser = {
-  id: string
-  email: string,
-  role: 'user' | 'admin',
+  id: string;
+  name: string;
+  email: string;
+  role: 'user' | 'admin';
 }
 
 

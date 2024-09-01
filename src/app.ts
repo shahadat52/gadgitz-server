@@ -18,8 +18,8 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api', router)
 app.use(
   '/api/my-bookings',
-  auth('user'),
-  bookingCollections.getBookingById
+  auth('user', 'admin'),
+  bookingCollections.getBookingByCustomer
 )
 
 app.use(globalErrorHandler);

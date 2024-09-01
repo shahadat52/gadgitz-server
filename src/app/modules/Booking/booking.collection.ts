@@ -15,7 +15,7 @@ const createBooking: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
-    const result = await bookingServices.getAllBookingsFromDB()
+    const result = await bookingServices.getAllBookingsFromDB(req.query)
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -26,8 +26,8 @@ const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
 });
 
 
-const getBookingById: RequestHandler = catchAsync(async (req, res) => {
-    const result = await bookingServices.getBookingByIdFromDB(req.user)
+const getBookingByCustomer: RequestHandler = catchAsync(async (req, res) => {
+    const result = await bookingServices.getBookingByCustomerFromDB(req.user)
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -40,5 +40,5 @@ const getBookingById: RequestHandler = catchAsync(async (req, res) => {
 export const bookingCollections = {
     createBooking,
     getAllBookings,
-    getBookingById
+    getBookingByCustomer
 }

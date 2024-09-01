@@ -2,26 +2,15 @@ import httpStatus from "http-status";
 import AppError from "../../errors/appErrors";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
-import { TLoginUser, TUser } from "./auth.interface";
-import { UserModel } from "./auth.model";
+import { TLoginUser } from "./auth.interface";
 import config from "../../config";
-
-const createUserInDB = async (data: TUser) => {
-  const hash = bcrypt.hashSync(data.password, 10);
-  data.password = hash
-  const result = await UserModel.create(data);
-
-  return result
-};
-
-
-
+import { UserModel } from "../User/user.model";
 
 const loginUser = async (payload: TLoginUser) => {
 
   const user = await UserModel.findOne({ email: payload?.email });
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User not available');
+    throw new AppError(httpStatus.NOT_FOUND, 'User not registered');
   }
   const hashPassword = user.password;
 
@@ -53,7 +42,6 @@ const loginUser = async (payload: TLoginUser) => {
 };
 
 export const authServices = {
-  createUserInDB,
   loginUser
 }
 

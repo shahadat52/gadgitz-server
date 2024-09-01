@@ -12,6 +12,7 @@ router.post(
 
 router.get(
     '/',
+    auth('admin', 'user'),
     serviceCollections.getAllServices
 );
 

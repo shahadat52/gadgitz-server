@@ -4,11 +4,11 @@ import AppError from '../errors/appErrors';
 import httpStatus from 'http-status';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
-import { UserModel } from '../modules/auth/auth.model';
+import { UserModel } from '../modules/User/user.model';
 const auth = (...requireRole: string[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const headers = req?.headers?.authorization?.split(' ') as string[];
-
+        // console.log(headers);
         if (!headers) {
             throw new AppError(
                 httpStatus.UNAUTHORIZED,
@@ -16,7 +16,7 @@ const auth = (...requireRole: string[]) => {
             );
         }
 
-        const token = headers[1];
+        const token = headers[1] || req?.headers?.authorization;
         if (!token) {
             throw new AppError(
                 httpStatus.UNAUTHORIZED,

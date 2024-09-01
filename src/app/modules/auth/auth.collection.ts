@@ -1,23 +1,10 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import { RequestHandler } from 'express';
 import { authServices } from './auth.service';
+import { RequestHandler } from 'express';
 
-
-const createUser: RequestHandler = catchAsync(async (req, res) => {
-  const result = await authServices.createUserInDB(req.body)
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'User is created successfully',
-    data: result,
-  })
-});
-
-
-const login = catchAsync(async (req, res) => {
+const login: RequestHandler = catchAsync(async (req, res) => {
   const result = await authServices.loginUser(req.body);
   sendResponse(res, {
     success: true,
@@ -30,6 +17,5 @@ const login = catchAsync(async (req, res) => {
 
 
 export const authCollections = {
-  createUser,
   login
 };

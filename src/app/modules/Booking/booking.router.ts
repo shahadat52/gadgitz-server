@@ -5,13 +5,13 @@ const router = express.Router();
 
 router.post(
     '/',
-    auth('user'),
+    auth('user', 'admin'),
     bookingCollections.createBooking
 );
 
 router.get(
     '/',
-    auth('admin'),
+    auth('admin', 'user'),
     bookingCollections.getAllBookings
 );
 

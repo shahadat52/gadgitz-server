@@ -12,7 +12,7 @@ const handleDuplicateError = (err: any): TGenericErrorResponse => {
   const statusCode = 400;
   return {
     statusCode,
-    message: `Email already exists`,
+    message: `Already exists`,
     errorSource,
   };
 };
