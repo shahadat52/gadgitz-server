@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TService } from "./service.interface";
 import { ServiceModel } from "./service.model";
 
 const createServiceInDB = async (data: TService) => {
     const result = await ServiceModel.create(data);
-    console.log(result);
     return result
 };
 
-const getAllServicesFromDB = async () => {
-    const result = await ServiceModel.find({ isDeleted: false });
+const getAllServicesFromDB = async (query: any) => {
+    const limit = Number(query?.limit)
+    const result = await ServiceModel.find({ isDeleted: false })
+        .limit(limit);
     return result
 }
 

@@ -14,9 +14,19 @@ const serviceSchema = new Schema<TService>({
         type: Number,
         required: true,
     },
-    duration: {
-        type: Number,
-        required: true,
+    image: {
+        type: String
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    brand: {
+        type: String,
+        required: true
+    },
+    features: {
+        type: String
     },
     isDeleted: {
         type: Boolean,
@@ -24,5 +34,5 @@ const serviceSchema = new Schema<TService>({
     },
 }, { timestamps: true });
 
-export const ServiceModel = mongoose.model('Service', serviceSchema);
+export const ServiceModel = mongoose.model('Product', serviceSchema);
 

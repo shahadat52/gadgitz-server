@@ -15,7 +15,7 @@ const createService: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllServices: RequestHandler = catchAsync(async (req, res) => {
-    const result = await serviceServices.getAllServicesFromDB()
+    const result = await serviceServices.getAllServicesFromDB(req.query)
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

@@ -1,20 +1,8 @@
 import mongoose, { Schema } from "mongoose";
-import { TBooking } from "./booking.interface";
+import { VehicleType } from "../Booking/booking.model";
+import { TBooking } from "../Booking/booking.interface";
 
-
-export const VehicleType = {
-    Car: 'car',
-    Truck: 'truck',
-    SUV: 'SUV',
-    Van: 'van',
-    Motorcycle: 'motorcycle',
-    Bus: 'bus',
-    ElectricVehicle: 'electricVehicle',
-    HybridVehicle: 'hybridVehicle',
-    Bicycle: 'bicycle',
-    Tractor: 'tractor'
-}
-const BookingSchema: Schema = new Schema<TBooking>({
+const PaymentSchema: Schema = new Schema<TBooking>({
     customer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
     slot: { type: Schema.Types.ObjectId, ref: 'Slot', required: true },
@@ -27,4 +15,4 @@ const BookingSchema: Schema = new Schema<TBooking>({
     timestamps: true
 });
 
-export const BookingModel = mongoose.model('Booking', BookingSchema);
+export const PaymentModel = mongoose.model('Payment', PaymentSchema);

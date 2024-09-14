@@ -8,7 +8,6 @@ import { UserModel } from '../modules/User/user.model';
 const auth = (...requireRole: string[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const headers = req?.headers?.authorization?.split(' ') as string[];
-        // console.log(headers);
         if (!headers) {
             throw new AppError(
                 httpStatus.UNAUTHORIZED,
