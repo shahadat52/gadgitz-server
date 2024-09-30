@@ -1,30 +1,17 @@
 import mongoose, { Schema } from "mongoose";
-import { TBooking } from "./booking.interface";
+import { TOrder } from "./booking.interface";
 
 
-export const VehicleType = {
-    Car: 'car',
-    Truck: 'truck',
-    SUV: 'SUV',
-    Van: 'van',
-    Motorcycle: 'motorcycle',
-    Bus: 'bus',
-    ElectricVehicle: 'electricVehicle',
-    HybridVehicle: 'hybridVehicle',
-    Bicycle: 'bicycle',
-    Tractor: 'tractor'
-}
-const BookingSchema: Schema = new Schema<TBooking>({
+const productSchema = new mongoose.Schema({
+    product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    quantity: { type: Number, required: true }
+}, { _id: false });
+const OrderSchema: Schema = new Schema<TOrder>({
     customer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
-    slot: { type: Schema.Types.ObjectId, ref: 'Slot', required: true },
-    vehicleType: { type: String, enum: Object.values(VehicleType), required: true },
-    vehicleBrand: { type: String, required: true },
-    vehicleModel: { type: String, required: true },
-    manufacturingYear: { type: Number, required: true },
-    registrationPlate: { type: String, required: true, unique: true }
+    products: [productSchema],
+    address: { type: String, required: true },
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
-export const BookingModel = mongoose.model('Booking', BookingSchema);
+export const OrderModel = mongoose.model('Order', OrderSchema);

@@ -1,33 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
-import httpStatus from "http-status";
-import AppError from "../../errors/appErrors";
-import { ServiceModel } from "../Service/service.model";
-import { TBooking } from "./booking.interface";
-import { BookingModel } from "./booking.model";
-import { SlotModel } from "../Slot/slot.model";
+import mongoose from "mongoose";
+import { TOrder } from "./booking.interface";
+import { OrderModel } from "./booking.model";
 import { JwtPayload } from "jsonwebtoken";
 
-const createBookingInDB = async (data: TBooking) => {
-    const isServiceAvailable = await ServiceModel.findById(data.service)
-    const isSlotAvailable = await SlotModel.findById(data.slot)
-    /*
-    find the slot 
-    update status booked
-    create a booking
-    */
-    await SlotModel.findByIdAndUpdate(isSlotAvailable?._id, { isBooked: 'booked' }, { new: true })
-
-    if (!isServiceAvailable) {
-        throw new AppError(httpStatus.FORBIDDEN, 'Service not found')
-    };
-    if (isSlotAvailable?.isBooked === 'booked') {
-        throw new AppError(httpStatus.FORBIDDEN, 'Slot Already Booked')
-    };
-    if (!isSlotAvailable) {
-        throw new AppError(httpStatus.FORBIDDEN, 'Slot not found')
-    };
-    const result = await BookingModel.create(data);
+const { ObjectId } = mongoose.Types
+const createBookingInDB = async (data: TOrder) => {
+    const result = await OrderModel.create(data);
     return result
 };
 
@@ -44,27 +24,39 @@ const getAllBookingsFromDB = async (query: any) => {
     // If there's a searchTerm, add conditions to search within specific fields
     if (query?.searchTerm) {
         searchQuery.$or = [
-            { 'customer.name': { $regex: query.searchTerm, $options: 'i' } }, // Case-insensitive search for customer name
-            { 'service.name': { $regex: query.searchTerm, $options: 'i' } },   // Case-insensitive search for service name
-            { 'slot.date': { $regex: query.searchTerm, $options: 'i' } },      // Case-insensitive search for slot date
+            { 'customer.name': { $regex: query.searchTerm, $options: 'i' } }
         ];
     }
 
-    const result = await BookingModel.find(searchQuery)
-        .populate('customer')
-        .populate('slot')
-        .populate('service');
+
+    const result = await OrderModel.find(searchQuery)
+        .populate([
+            { path: 'customer' },
+            {
+                path: 'products',
+                populate: {
+                    path: 'product'
+                }
+            }
+        ])
+
     return result
 };
 
 const getBookingByCustomerFromDB = async (user: JwtPayload) => {
-    const result = await BookingModel.find({
-        customer: user.id,
-    })
-        .populate('customer')
-        .populate('slot')
-        .populate('service');
-
+    const result = await OrderModel.aggregate([
+        { $match: { customer: new ObjectId(`${user.id}`) } },
+        {
+            $lookup: {
+                from: "products",
+                localField: "products.product",
+                foreignField: "_id",
+                as: "productInfo"
+            }
+        },
+        { $unwind: "$productInfo" },
+        { $project: { productInfo: 1, _id: 0 } }
+    ])
     return result;
 }
 

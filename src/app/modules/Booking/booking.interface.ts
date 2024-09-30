@@ -1,15 +1,13 @@
 import { Types } from 'mongoose';
 
-export type TVehicleType = 'car' | 'truck' | 'SUV' | 'van' | 'motorcycle' | 'bus' | 'electricVehicle' | 'hybridVehicle' | 'bicycle' | 'tractor'
-
-export type TBooking = {
+type product = {
+    product: string,
+    quantity: number
+}
+export type TOrder = {
     customer: Types.ObjectId;
-    service: Types.ObjectId;
-    slot: Types.ObjectId;
-    vehicleType: TVehicleType;
-    vehicleBrand: string;
-    vehicleModel: string;
-    manufacturingYear: number;
-    registrationPlate: string;
+    products: [product];
+    address: string;
+
 }
 

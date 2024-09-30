@@ -14,6 +14,10 @@ const serviceSchema = new Schema<TService>({
         type: Number,
         required: true,
     },
+    quantity: {
+        type: Number,
+        required: true,
+    },
     image: {
         type: String
     },

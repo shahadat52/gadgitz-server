@@ -9,18 +9,19 @@ const createBooking: RequestHandler = catchAsync(async (req, res) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Bookings is created successfully',
+        message: 'Order created successfully',
         data: result,
     })
 });
 
 const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
+
     const result = await bookingServices.getAllBookingsFromDB(req.query)
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'All Booking Retrieved Successfully',
+        message: 'All Orders Retrieved Successfully',
         data: result,
     })
 });
@@ -32,7 +33,7 @@ const getBookingByCustomer: RequestHandler = catchAsync(async (req, res) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Booking Retrieved Successfully',
+        message: 'Order Retrieved Successfully',
         data: result,
     })
 });

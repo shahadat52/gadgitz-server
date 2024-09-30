@@ -17,7 +17,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api', router)
 app.use(
-  '/api/my-bookings',
+  '/api/my-orders',
   auth('user', 'admin'),
   bookingCollections.getBookingByCustomer
 )

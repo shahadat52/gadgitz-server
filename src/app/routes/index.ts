@@ -2,10 +2,9 @@ import { Router } from "express";
 import { authRouters } from "../modules/auth/auth.router";
 import { serviceRouters } from "../modules/Service/service.router";
 import { slotRouters } from "../modules/Slot/slot.router";
-import { bookingRoutes } from "../modules/Booking/booking.router";
+import { OrderRoutes } from "../modules/Booking/booking.router";
 import { userRoutes } from "../modules/User/user.router";
 import { reviewRouters } from "../modules/review/review.router";
-import { paymentRouters } from "../modules/payment/payment.router";
 
 
 // import express from 'express'
@@ -17,7 +16,7 @@ const moduleRoutes = [
     router: authRouters,
   },
   {
-    path: '/services',
+    path: '/products',
     router: serviceRouters,
   },
   {
@@ -25,8 +24,8 @@ const moduleRoutes = [
     router: slotRouters,
   },
   {
-    path: '/bookings',
-    router: bookingRoutes,
+    path: '/orders',
+    router: OrderRoutes,
   },
   {
     path: '/users',
@@ -35,10 +34,6 @@ const moduleRoutes = [
   {
     path: '/reviews',
     router: reviewRouters,
-  },
-  {
-    path: '/payment',
-    router: paymentRouters,
   }
 
 ];
